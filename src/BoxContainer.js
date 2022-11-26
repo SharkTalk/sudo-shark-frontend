@@ -25,13 +25,18 @@ const BoxContainer = (props) => {
     console.log('making call to backend');
     const requestURI = process.env.BACKEND_API_URI;
     console.log(process.env.BACKEND_API_URI);
-    const response = await axios.get(requestURI, {
-      body: {
-        text: JSON.stringify(inputText),
-        language: 'JavaScript',
+
+    const json = {
+      text: inputText,
+      language: 'JavaScript',
+    };
+
+    const response = await axios.post(requestURI, json, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
       },
     });
-
     setOutputText(response.data);
   };
 
