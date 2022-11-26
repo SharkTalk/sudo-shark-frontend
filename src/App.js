@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from './Button';
+import UserInput from './UserInput';
 import { useEffect } from 'react';
 import axios from 'axios';
 
@@ -15,8 +15,8 @@ const App = (props) => {
 
   return (
     <>
-      <h1>App Name</h1>
-      <Button />
+      <h1>Sudo Shark</h1>
+      <UserInput />
     </>
   );
 };
