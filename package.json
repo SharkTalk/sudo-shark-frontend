@@ -10,6 +10,11 @@
   "author": "SharkTalk",
   "license": "MIT",
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@fontsource/roboto": "^4.5.8",
+    "@mui/icons-material": "^5.10.15",
+    "@mui/material": "^5.10.15",
     "axios": "^1.2.0",
     "css-loader": "^6.7.2",
     "fs": "^0.0.1-security",
@@ -26,6 +31,7 @@
     "babel-loader": "^9.1.0",
     "copy-webpack-plugin": "^11.0.0",
     "dotenv-webpack": "^8.0.1",
+    "eslint": "^8.28.0",
     "html-webpack-plugin": "^5.5.0",
     "webpack-cli": "^5.0.0",
     "webpack-dev-server": "^4.11.1"
