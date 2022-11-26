@@ -1,26 +1,31 @@
 import React from 'react';
-import { Button, TextField } from '@mui/material';
+import { Button, TextField, Typography } from '@mui/material';
+import Shark from './static/shark.png';
 
 const inlineStyle = {
   display: 'flex',
+  flexDirection: 'column',
   paddingBottom: '1em',
 };
 
 export default () => {
   return (
     <>
-      <div style={inlineStyle}>
+      <div id='Input' style={inlineStyle}>
         <TextField
+          style={{ fontFamily: 'Monospace' }}
           id='filled-multiline-static'
-          label='Javascript'
+          label='Paste your Code'
           multiline
-          rows={12}
-          defaultValue='Default Value'
+          rows={20}
           variant='filled'
           fullWidth
+          placeholder='Javascript'
         />
+        <Button variant='contained' src={Shark}>
+          Commentify
+        </Button>
       </div>
-      <Button variant='contained'>Commentify</Button>
     </>
   );
 };
