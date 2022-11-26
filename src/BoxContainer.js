@@ -20,16 +20,19 @@ const BoxContainer = (props) => {
   };
 
   const handleSubmit = async (event) => {
+    console.log(JSON.stringify(inputText));
+    event.preventDefault();
+    console.log('making call to backend');
     const requestURI = process.env.BACKEND_API_URI;
+    console.log(process.env.BACKEND_API_URI);
     const response = await axios.get(requestURI, {
       body: {
-        text: inputText,
-        language: inputLanguage,
+        text: JSON.stringify(inputText),
+        language: 'JavaScript',
       },
     });
-    event.preventDefault();
 
-    setOutputText(response.data.result);
+    setOutputText(response.data);
   };
 
   return (
