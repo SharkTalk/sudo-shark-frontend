@@ -1,0 +1,23 @@
+img {
+  width: 50px;
+  transform: scaleX(-1);
+}
+
+#imgWrapper {
+  align-self: center;
+  position: relative;
+}
+
+#BoxContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#Input {
+  flex-grow: 0.75;
+}
+
+#Output {
+  flex-grow: 0.75;
+}
