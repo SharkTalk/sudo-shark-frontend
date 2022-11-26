@@ -8,12 +8,13 @@ const inlineStyle = {
   paddingBottom: '1em',
 };
 
-export default () => {
+export default (props) => {
   return (
     <>
       <div id='Input' style={inlineStyle}>
         <TextField
           style={{ fontFamily: 'Monospace' }}
+          name='input Text'
           id='filled-multiline-static'
           label='Paste your Code'
           multiline
@@ -21,10 +22,19 @@ export default () => {
           variant='filled'
           fullWidth
           placeholder='Javascript'
+          onChange={(event) => {
+            props.handleTyping(event);
+          }}
         />
-        <Button variant='contained' src={Shark}>
-          Commentify
+        <Button
+          variant='contained'
+          src={Shark}
+          onClick={(event) => props.handleSubmit(event)}
+        >
+          Sharkify
         </Button>
+
+        <p>{props.inputTextLength} / 250</p>
       </div>
     </>
   );

@@ -1,6 +1,7 @@
 img {
   width: 50px;
   transform: scaleX(-1);
+  margin-top: -80px;
 }
 
 #imgWrapper {
@@ -20,4 +21,8 @@ img {
 
 #Output {
   flex-grow: 0.75;
+}
+
+h1 {
+  text-align: center;
 }

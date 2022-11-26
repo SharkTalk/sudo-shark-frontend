@@ -1,7 +1,8 @@
 import React from 'react';
-import { Button, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 
-export default () => {
+export default (props) => {
+  console.log(props.outputText);
   return (
     <>
       <div id='Output'>
@@ -11,6 +12,8 @@ export default () => {
           placeholder='Plain English'
           variant='filled'
           fullWidth
+          readOnly
+          value={props.outputText}
         />
       </div>
     </>
