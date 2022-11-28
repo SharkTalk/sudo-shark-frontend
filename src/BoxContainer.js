@@ -4,6 +4,7 @@ import UserInput from './UserInput';
 import OutputBox from './OutputBox';
 import SearchedResults from './SearchedResults';
 import Shark from './static/shark.png';
+import SignInButtons from './SignInButtons';
 
 function BoxContainer() {
   const [inputText, setInputText] = useState('');
@@ -16,7 +17,8 @@ function BoxContainer() {
   // mock data for searched:
   // to test first update username in the state to any mock string as well
   // {code: "function() {console.log(hey)}", translation: "This is a function with console.log"},
-  // {code: "useEffect(() => {setInputTextLength(inputText.toString().length)", translation: "this is another function"}
+  // {code: "useEffect(() => {setInputTextLength(inputText.toString().length)",
+  // translation: "this is another function"}
 
   useEffect(() => {
     setInputTextLength(inputText.toString().length);
@@ -24,32 +26,26 @@ function BoxContainer() {
 
   // functionality to get previously researched queries from the database
   useEffect(() => {
-    if (username) {
-      const requestURI = process.env.BACKEND_API_URI + '/user/getRequests';
-      const getSearched = async() => {
-        const response = await fetch(requestURI, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*', // might not need this
-          },
-          body: JSON.stringify({
-            username: username
-          })
+    if (username.length !== 0) {
+      console.log('useEffect hook: ', username);
+      const requestURI = `${process.env.BACKEND_USER_URI}/getRequests`;
+      const getRequests = async () => {
+        const response = await axios.post(requestURI, {
+          username,
         });
-        return response.data;
+        console.log(response.data);
+        setSearched(response.data);
       };
-      const data = getSearched();
-      setSearched(data); 
+      getRequests();
     }
   }, [username]);
 
   // function to invoke when user clicks one previously searched query
   // we expect to see full code and translation in the input / output boxes
-  const handleElementClick = obj => {
+  const handleElementClick = (obj) => {
     document.querySelector('#filled-multiline-static').value = obj.code; // should be researched and perfected
     setOutputText(obj.translation);
-  }
+  };
 
   const handleTyping = (event) => {
     setInputText(event.target.value);
@@ -63,7 +59,7 @@ function BoxContainer() {
 
     const json = {
       text: inputText,
-      language: 'JavaScript'
+      language: 'JavaScript',
     };
 
     // sending username if user is logged in
@@ -82,22 +78,27 @@ function BoxContainer() {
 
   return (
     <>
-    <main id='BoxContainer' style={{ display: 'flex' }}>
-      {username && <SearchedResults 
-                     handleElementClick={handleElementClick} 
-                     searched={searched} />}
-      <UserInput
-        inputlanguage={inputLanguage}
-        inputText={inputText}
-        handleTyping={handleTyping}
-        handleSubmit={handleSubmit}
-        inputTextLength={inputTextLength}
-      />
-      <div id='imgWrapper'>
-        <img id='shark' alt='' src={Shark} />
-      </div>
-      <OutputBox outputText={outputText} />
-    </main>
+      <SignInButtons setUsername={setUsername} stateUsername={username} />
+
+      <main id='BoxContainer' style={{ display: 'flex' }}>
+        {username && (
+        <SearchedResults
+          handleElementClick={handleElementClick}
+          searched={searched}
+        />
+        )}
+        <UserInput
+          inputlanguage={inputLanguage}
+          inputText={inputText}
+          handleTyping={handleTyping}
+          handleSubmit={handleSubmit}
+          inputTextLength={inputTextLength}
+        />
+        <div id='imgWrapper'>
+          <img id='shark' alt='' src={Shark} />
+        </div>
+        <OutputBox outputText={outputText} />
+      </main>
     </>
   );
 }
