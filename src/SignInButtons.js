@@ -1,34 +1,100 @@
 import React from 'react';
 import {
-  Button, TextField, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Box,
+  Button, TextField, Dialog, DialogContent, DialogTitle, Box,
 } from '@mui/material';
+import axios from 'axios';
 
 function SignInButtons() {
-  const [open, setOpen] = React.useState(false);
+  const [openLogin, setOpenLogin] = React.useState(false);
+  const [openSignUp, setOpenSignUp] = React.useState(false);
+  const [isLoggedIn, setLoginStatus] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleClickLoginOpen = () => {
+    setOpenLogin(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleClickSignUpOpen = () => {
+    setOpenSignUp(true);
   };
 
-  const handleSubmit = (e) => {
+  const handleLoginClose = () => {
+    setOpenLogin(false);
+  };
+
+  const handleSignUpClose = () => {
+    setOpenSignUp(false);
+  };
+
+  const handleLoginSubmit = (e) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
-    console.log('submitted', data.get('username'), data.get('password'));
+    const username = data.get('username');
+    const password = data.get('password');
+    const login = async () => {
+      const response = await axios.post('/user/login', {
+        username,
+        password,
+      });
+      // if username or pw incorrect, display message saying so
+      console.log(response);
+      // change state of username with success
+      // close dialog
+      // remove sign in and sign up bottons
+    };
+    login();
+    console.log('submitted', username, password);
+    // setLoginStatus(true);
+    // snackbar
   };
 
+  const handleSignUpSubmit = (e) => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const username = data.get('username');
+    const email = data.get('email');
+    const password = data.get('password');
+    const confirmPass = data.get('confirm-password');
+    // check that pw and confirm pw match
+    if (password !== confirmPass) {
+      console.log('passwords do not match');
+      return;
+    }
+    // check if username exists
+    // if all pass, save new user
+    const signUp = async () => {
+      const response = axios.post('/user/new', {
+        username,
+        password,
+        email,
+      });
+      console.log(response);
+    };
+    signUp();
+    console.log('signedup');
+  };
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    // change state of username to empty string
+    setLoginStatus(false);
+  };
+
+  if (isLoggedIn) {
+    return (
+      <Button id='logout' variant='contained' color='secondary' onClick={handleLogout}>
+        Log Out
+      </Button>
+    );
+  }
   return (
     <div id='SignInButtons'>
-      <Button id='signin' variant='contained' color='secondary' onClick={handleClickOpen}>
+      <Button id='signin' variant='contained' color='secondary' onClick={handleClickLoginOpen}>
         Sign In
       </Button>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={openLogin} onClose={handleLoginClose}>
         <DialogTitle>Login</DialogTitle>
         <DialogContent>
-          <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component='form' onSubmit={handleLoginSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin='normal'
               required
@@ -40,6 +106,7 @@ function SignInButtons() {
               autoFocus
             />
             <TextField
+              type='password'
               margin='normal'
               required
               fullWidth
@@ -58,16 +125,69 @@ function SignInButtons() {
               Sign In
             </Button>
           </Box>
-          {/* <form>
-            <label></label>
-            <input type='text' id='username' name='username' />
-          </form> */}
 
         </DialogContent>
       </Dialog>
-      <Button id='logout' color='secondary'>
-        Log Out
+
+      <Button id='signup' color='secondary' onClick={handleClickSignUpOpen}>
+        Sign Up
       </Button>
+      <Dialog open={openSignUp} onClose={handleSignUpClose}>
+        <DialogTitle>Sign Up</DialogTitle>
+        <DialogContent>
+          <Box component='form' onSubmit={handleSignUpSubmit} noValidate sx={{ mt: 1 }}>
+            <TextField
+              margin='normal'
+              required
+              fullWidth
+              id='username'
+              label='Username'
+              name='username'
+              autoComplete='off'
+              autoFocus
+            />
+            <TextField
+              margin='normal'
+              required
+              fullWidth
+              id='email'
+              label='Email (optional)'
+              name='email'
+              autoComplete='off'
+            />
+            <TextField
+              type='password'
+              margin='normal'
+              required
+              fullWidth
+              id='password'
+              label='Password'
+              name='password'
+              autoComplete='off'
+            />
+            <TextField
+              type='password'
+              margin='normal'
+              required
+              fullWidth
+              id='confirm-password'
+              label='Confirm Password'
+              name='confirm-password'
+              autoComplete='off'
+            />
+            <Button
+              type='submit'
+              fullWidth
+              variant='contained'
+              sx={{ mt: 3, mb: 2 }}
+              color='secondary'
+            >
+              Sign In
+            </Button>
+          </Box>
+
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
