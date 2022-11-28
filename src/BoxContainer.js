@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import UserInput from './UserInput';
 import OutputBox from './OutputBox';
 import Shark from './static/shark.png';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 
-const BoxContainer = (props) => {
+function BoxContainer() {
   const [inputText, setInputText] = useState('');
   const [inputTextLength, setInputTextLength] = useState(0);
   const [inputLanguage, setInputLanguage] = useState('Javascript');
@@ -50,11 +49,11 @@ const BoxContainer = (props) => {
         inputTextLength={inputTextLength}
       />
       <div id='imgWrapper'>
-        <img id='shark' src={Shark}></img>
+        <img id='shark' alt='' src={Shark} />
       </div>
       <OutputBox outputText={outputText} />
     </main>
   );
-};
+}
 
 export default BoxContainer;
