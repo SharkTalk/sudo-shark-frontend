@@ -1,6 +1,8 @@
 import React from 'react';
 import { Button, TextField, Typography } from '@mui/material';
 import Shark from './static/shark.png';
+import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
+import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 
 const inlineStyle = {
   display: 'flex',
