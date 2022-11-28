@@ -5,7 +5,7 @@ export default function (props) {
   const { outputText } = props;
   console.log(outputText);
   return (
-    <div id='Output'>
+    <div className='boxes' id='Output'>
       <TextField
         multiline
         rows={20}
