@@ -56,6 +56,43 @@ const BoxContainer = (props) => {
     setInputText(event.target.value);
   };
 
+  const CopyToClipBoardNormal = (event) => {
+    if (!outputText) return;
+
+    const lineLength = 40;
+    let copyOutput = outputText[0];
+    let readyToCopy = false;
+    for (let i = 1; i < outputText.length; i++) {
+      if (i % lineLength === 0) readyToCopy = true;
+      if (readyToCopy && outputText[i] === ' ') {
+        copyOutput += '\n';
+        readyToCopy = false;
+        continue;
+      }
+      copyOutput += outputText[i];
+    }
+    navigator.clipboard.writeText(copyOutput);
+  };
+
+  const CopyToClipBoardSudo = (event) => {
+    if (!outputText) return;
+
+    const lineLength = 40;
+    let copyOutput = outputText[0];
+    let readyToCopy = false;
+    for (let i = 1; i < outputText.length; i++) {
+      if (i % lineLength === 0) readyToCopy = true;
+      if (readyToCopy && outputText[i] === ' ') {
+        copyOutput += '\n';
+        readyToCopy = false;
+        continue;
+      }
+      copyOutput += outputText[i];
+    }
+    const textToCopy = `/*\n ${copyOutput} \n */`;
+    navigator.clipboard.writeText(textToCopy);
+  };
+
   const handleSubmit = async (event) => {
     console.log(JSON.stringify(inputText));
     event.preventDefault();
@@ -93,7 +130,11 @@ const BoxContainer = (props) => {
       <div id='imgWrapper'>
         <img id='shark' src={Shark}></img>
       </div>
-      <OutputBox outputText={outputText} />
+      <OutputBox
+        outputText={outputText}
+        copyNormal={CopyToClipBoardNormal}
+        copySudo={CopyToClipBoardSudo}
+      />
     </main>
     </>
   );
