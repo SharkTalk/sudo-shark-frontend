@@ -12,7 +12,7 @@ export default function (props) {
   console.log(handleSubmit);
   const characterCount = `${inputTextLength} / 250`;
   return (
-    <div id='Input' style={inlineStyle}>
+    <div className='boxes' id='Input' style={inlineStyle}>
       <TextField
         inputProps={{ maxLength: 250 }}
         style={{ fontFamily: 'Monospace' }}
