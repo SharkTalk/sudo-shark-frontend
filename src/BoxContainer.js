@@ -4,8 +4,6 @@ import UserInput from './UserInput';
 import OutputBox from './OutputBox';
 import SearchedResults from './SearchedResults';
 import Shark from './static/shark.png';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Button } from '@mui/material';
 
 // mock data for searched:
