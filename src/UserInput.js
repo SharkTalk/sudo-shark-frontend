@@ -8,12 +8,16 @@ const inlineStyle = {
   paddingBottom: '1em',
 };
 
-export default () => {
+export default (props) => {
+  console.log(props.handleSubmit);
+  const characterCount = props.inputTextLength + ' / 250';
   return (
     <>
       <div id='Input' style={inlineStyle}>
         <TextField
+          inputProps={{ maxLength: 250 }}
           style={{ fontFamily: 'Monospace' }}
+          name='input Text'
           id='filled-multiline-static'
           label='Paste your Code'
           multiline
@@ -21,9 +25,18 @@ export default () => {
           variant='filled'
           fullWidth
           placeholder='Javascript'
+          onChange={(event) => {
+            props.handleTyping(event);
+          }}
+          helperText={characterCount}
         />
-        <Button variant='contained' src={Shark}>
-          Commentify
+        <Button
+          style={{ paddingTop: '10px' }}
+          variant='contained'
+          size='small'
+          onClick={(event) => props.handleSubmit(event)}
+        >
+          Sharkify
         </Button>
       </div>
     </>
