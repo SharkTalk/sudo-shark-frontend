@@ -2,7 +2,7 @@ import React from 'react';
 import BoxContainer from './BoxContainer';
 import SignInButtons from './SignInButtons';
 
-const App = (props) => {
+function App(props) {
   return (
     <>
       <div id='header'>
@@ -12,6 +12,6 @@ const App = (props) => {
       <BoxContainer />
     </>
   );
-};
+}
 
 export default App;
