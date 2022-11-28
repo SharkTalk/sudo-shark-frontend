@@ -11,7 +11,10 @@
   },
   "plugins": ["react"],
   "rules": {
+    "func-names": 0,
+    "jsx-quotes": [2, "prefer-single"],
     "no-console": "off",
-    "jsx-quotes": [2, "prefer-single"]
+    "react/jsx-filename-extension": [0],
+    "react/prop-types": 0
   }
 }

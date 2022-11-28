@@ -2,9 +2,10 @@ import React from 'react';
 import { TextField } from '@mui/material';
 
 export default function (props) {
-  console.log(props.outputText);
+  const { outputText } = props;
+  console.log(outputText);
   return (
-    <div className='boxes' id='Output'>
+    <div id='Output'>
       <TextField
         multiline
         rows={20}
@@ -12,7 +13,7 @@ export default function (props) {
         variant='filled'
         fullWidth
         readOnly
-        value={props.outputText}
+        value={outputText}
       />
     </div>
   );

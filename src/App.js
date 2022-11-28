@@ -2,7 +2,7 @@ import React from 'react';
 import BoxContainer from './BoxContainer';
 import SignInButtons from './SignInButtons';
 
-function App(props) {
+function App() {
   return (
     <>
       <div id='header'>

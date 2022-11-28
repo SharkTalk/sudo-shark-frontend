@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button, TextField, Typography } from '@mui/material';
-import Shark from './static/shark.png';
+import { Button, TextField } from '@mui/material';
 
 const inlineStyle = {
   display: 'flex',
@@ -9,12 +8,12 @@ const inlineStyle = {
 };
 
 export default function (props) {
-  console.log(props.handleSubmit);
-  const characterCount = `${props.inputTextLength} / 250`;
+  const { inputTextLength, handleSubmit, handleTyping } = props;
+  console.log(handleSubmit);
+  const characterCount = `${inputTextLength} / 250`;
   return (
-    <div className='boxes' id='Input' style={inlineStyle}>
+    <div id='Input' style={inlineStyle}>
       <TextField
-        InputLabelProps={{shrink: true}}
         inputProps={{ maxLength: 250 }}
         style={{ fontFamily: 'Monospace' }}
         name='input Text'
@@ -26,7 +25,7 @@ export default function (props) {
         fullWidth
         placeholder='Javascript'
         onChange={(event) => {
-          props.handleTyping(event);
+          handleTyping(event);
         }}
         helperText={characterCount}
       />
@@ -34,7 +33,7 @@ export default function (props) {
         style={{ paddingTop: '10px' }}
         variant='contained'
         size='small'
-        onClick={(event) => props.handleSubmit(event)}
+        onClick={(event) => handleSubmit(event)}
       >
         Sharkify
       </Button>
