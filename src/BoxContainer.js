@@ -88,7 +88,6 @@ const BoxContainer = (props) => {
                      handleElementClick={handleElementClick} 
                      searched={searched} />}
       <UserInput
-        shrink={shrink}
         inputlanguage={inputLanguage}
         inputText={inputText}
         handleTyping={handleTyping}
