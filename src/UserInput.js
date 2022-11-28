@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button, TextField, Typography } from '@mui/material';
-import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
-import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import Shark from './static/shark.png';
 
 const inlineStyle = {
   display: 'flex',
@@ -11,7 +10,9 @@ const inlineStyle = {
 };
 
 export default function (props) {
-  const characterCount = `${props.inputTextLength} / 250`;
+  const { inputTextLength, handleSubmit, handleTyping } = props;
+  console.log(handleSubmit);
+  const characterCount = `${inputTextLength} / 250`;
   return (
     <div className='boxes' id='Input' style={inlineStyle}>
       <TextField
