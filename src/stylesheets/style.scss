@@ -13,24 +13,52 @@ img {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  margin-top: 15px;
 }
 
-#Input {
+.boxes {
   flex-grow: 0.75;
+  max-width: 500px;
+  height: 480px;
+
 }
 
-#Output {
-  flex-grow: 0.75;
+.searchedContainer {
+  width: 280px;
+  justify-self: flex-start;
+  font-size: 16px;
+  margin-right: 40px;
+  background-color: rgb(8, 7, 20);
+  color: lime;
+  border-radius: 5px;
 }
+
+.element {
+  padding: 6px;
+  border-bottom: 1px solid lightgray;
+}
+
+.element:hover {
+  cursor: pointer;
+  background-color: rgb(38, 37, 50);
+}
+
+.element span {
+  color: lightgray;
+}
+
 
 h1 {
   text-align: center;
+  margin: 25px auto;
+  align-self: center;
 }
 
 #header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 }
 
 #SignInButtons {
