@@ -48,7 +48,7 @@ const BoxContainer = (props) => {
   // function to invoke when user clicks one previously searched query
   // we expect to see full code and translation in the input / output boxes
   const handleElementClick = obj => {
-    document.querySelector('#filled-multiline-static').value = obj.code;
+    document.querySelector('#filled-multiline-static').value = obj.code; // should be researched and perfected
     setOutputText(obj.translation);
   }
 
@@ -64,8 +64,13 @@ const BoxContainer = (props) => {
 
     const json = {
       text: inputText,
-      language: 'JavaScript',
+      language: 'JavaScript'
     };
+
+    // sending username if user is logged in
+    if (username.length > 0) {
+      json.username = username;
+    }
 
     const response = await axios.post(requestURI, json, {
       headers: {
