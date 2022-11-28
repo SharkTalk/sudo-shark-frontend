@@ -20,22 +20,23 @@ img {
   flex-grow: 0.75;
   max-width: 500px;
   height: 480px;
-
+  font-family: monospace;
 }
 
 .searchedContainer {
-  width: 280px;
+  position: absolute;
+  width: 200px;
   justify-self: flex-start;
-  font-size: 16px;
-  margin-right: 40px;
+  font-size: 12px;
   background-color: rgb(8, 7, 20);
   color: lime;
   border-radius: 5px;
 }
 
 .element {
-  padding: 6px;
+  margin-inline-end: 5%;
   border-bottom: 1px solid lightgray;
+  word-wrap: break-word;
 }
 
 .element:hover {
@@ -46,7 +47,6 @@ img {
 .element span {
   color: lightgray;
 }
-
 
 h1 {
   text-align: center;

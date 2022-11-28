@@ -11,12 +11,11 @@ const inlineStyle = {
 };
 
 export default function (props) {
-  console.log(props.handleSubmit);
   const characterCount = `${props.inputTextLength} / 250`;
   return (
     <div className='boxes' id='Input' style={inlineStyle}>
       <TextField
-        InputLabelProps={{ shrink: true }}
+        InputLabelProps={props.shrinkComponent}
         inputProps={{ maxLength: 250 }}
         style={{ fontFamily: 'Monospace' }}
         name='input Text'
@@ -34,6 +33,7 @@ export default function (props) {
       />
       <Button
         style={{ paddingTop: '10px' }}
+        fullWidth
         startIcon={<KeyboardDoubleArrowRightIcon />}
         endIcon={<KeyboardDoubleArrowLeftIcon />}
         variant='contained'

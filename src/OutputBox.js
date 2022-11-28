@@ -22,9 +22,7 @@ export default function (props) {
         helperText='Copy text to clipboard'
       />
       <ButtonGroup
-        container
         id='CopyButtons'
-        fullwidth
         sx={{
           display: 'inline-flex',
           justifyContent: 'center',
@@ -35,16 +33,14 @@ export default function (props) {
           variant='contained'
           size='large'
           onClick={() => props.copySudo()}
-          fullwidth='true'
         >
-          Copy as Sudo Code
+          Copy As Sudo Code
         </Button>
         <Button
           style={{ paddingTop: '10px', margin: 2 }}
           variant='contained'
           size='large'
           onClick={() => props.copyNormal()}
-          fullwidth='true'
         >
           Copy Explanation
         </Button>
