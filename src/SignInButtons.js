@@ -4,10 +4,12 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 
-function SignInButtons() {
+function SignInButtons(props) {
+  const { setUsername, stateUsername } = props;
+
   const [openLogin, setOpenLogin] = React.useState(false);
   const [openSignUp, setOpenSignUp] = React.useState(false);
-  const [isLoggedIn, setLoginStatus] = React.useState(false);
+  /* const [isLoggedIn, setLoginStatus] = React.useState(false); */
 
   const handleClickLoginOpen = () => {
     setOpenLogin(true);
@@ -27,18 +29,21 @@ function SignInButtons() {
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
+    const requestURI = `${process.env.BACKEND_USER_URI}/login`;
     const data = new FormData(e.currentTarget);
     const username = data.get('username');
     const password = data.get('password');
     const login = async () => {
-      const response = await axios.post('/user/login', {
+      const response = await axios.post(requestURI, {
         username,
         password,
       });
       // if username or pw incorrect, display message saying so
-      console.log(response);
+      console.log(response.data);
       // change state of username with success
+      setUsername(response.data);
       // close dialog
+      setOpenLogin(false);
       // remove sign in and sign up bottons
     };
     login();
@@ -49,6 +54,7 @@ function SignInButtons() {
 
   const handleSignUpSubmit = (e) => {
     e.preventDefault();
+    const requestURI = `${process.env.BACKEND_USER_URI}/new`;
     const data = new FormData(e.currentTarget);
     const username = data.get('username');
     const email = data.get('email');
@@ -62,12 +68,14 @@ function SignInButtons() {
     // check if username exists
     // if all pass, save new user
     const signUp = async () => {
-      const response = axios.post('/user/new', {
+      const response = await axios.post(requestURI, {
         username,
         password,
         email,
       });
       console.log(response);
+      setUsername(response.data);
+      setOpenSignUp(false);
     };
     signUp();
     console.log('signedup');
@@ -76,14 +84,19 @@ function SignInButtons() {
   const handleLogout = (e) => {
     e.preventDefault();
     // change state of username to empty string
-    setLoginStatus(false);
+    setUsername('');
+    // setLoginStatus(false);
   };
 
-  if (isLoggedIn) {
+  if (stateUsername !== '') {
     return (
-      <Button id='logout' variant='contained' color='secondary' onClick={handleLogout}>
-        Log Out
-      </Button>
+      <div id='SignInButtons'>
+
+        <Button id='logout' variant='contained' color='secondary' onClick={handleLogout}>
+          Log Out
+        </Button>
+
+      </div>
     );
   }
   return (
