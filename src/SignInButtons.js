@@ -1,7 +1,7 @@
 import React from 'react';
-import { Button, TextField, Typography } from '@mui/material';
+import { Button } from '@mui/material';
 
-const SignInButtons = () => {
+function SignInButtons() {
   return (
     <div id='SignInButtons'>
       <Button id='signin' variant='contained' color='secondary'>
@@ -12,6 +12,6 @@ const SignInButtons = () => {
       </Button>
     </div>
   );
-};
+}
 
 export default SignInButtons;
