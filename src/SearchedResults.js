@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-const SearchedResults = ({ searched, handleElementClick }) => {
+const SearchedResults = (props) => {
+  const { searched, handleElementClick } = props;
+  console.log('line 5', searched);
   return (
     <div className='searchedContainer'>
       {searched.map((obj) => (

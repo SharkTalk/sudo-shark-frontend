@@ -1,6 +1,11 @@
 import React from 'react';
 import {
-  Button, TextField, Dialog, DialogContent, DialogTitle, Box,
+  Button,
+  TextField,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Box,
 } from '@mui/material';
 import axios from 'axios';
 
@@ -9,7 +14,7 @@ function SignInButtons(props) {
 
   const [openLogin, setOpenLogin] = React.useState(false);
   const [openSignUp, setOpenSignUp] = React.useState(false);
-  /* const [isLoggedIn, setLoginStatus] = React.useState(false); */
+  const [isLoggedIn, setLoginStatus] = React.useState(false);
 
   const handleClickLoginOpen = () => {
     setOpenLogin(true);
@@ -27,87 +32,100 @@ function SignInButtons(props) {
     setOpenSignUp(false);
   };
 
-  const handleLoginSubmit = (e) => {
-    e.preventDefault();
-    const requestURI = `${process.env.BACKEND_USER_URI}/login`;
-    const data = new FormData(e.currentTarget);
-    const username = data.get('username');
-    const password = data.get('password');
-    const login = async () => {
-      const response = await axios.post(requestURI, {
-        username,
-        password,
-      });
-      // if username or pw incorrect, display message saying so
-      console.log(response.data);
-      // change state of username with success
-      setUsername(response.data);
-      // close dialog
-      setOpenLogin(false);
-      // remove sign in and sign up bottons
-    };
-    login();
-    console.log('submitted', username, password);
-    // setLoginStatus(true);
-    // snackbar
-  };
+  // const handleLoginSubmit = (e) => {
+  //   e.preventDefault();
+  //   const requestURI = `${process.env.BACKEND_USER_URI}/login`;
+  //   const data = new FormData(e.currentTarget);
+  //   const username = data.get('username');
+  //   const password = data.get('password');
+  //   const login = async () => {
+  //     const response = await axios.post(requestURI, {
+  //       username,
+  //       password,
+  //     });
+  //     // if username or pw incorrect, display message saying so
+  //     console.log(response.data);
+  //     // change state of username with success
+  //     setUsername(response.data);
+  //     // close dialog
+  //     setOpenLogin(false);
+  //     // remove sign in and sign up bottons
+  //   };
+  //   login();
+  //   console.log('submitted', username, password);
+  //   // setLoginStatus(true);
+  //   // snackbar
+  // };
 
-  const handleSignUpSubmit = (e) => {
-    e.preventDefault();
-    const requestURI = `${process.env.BACKEND_USER_URI}/new`;
-    const data = new FormData(e.currentTarget);
-    const username = data.get('username');
-    const email = data.get('email');
-    const password = data.get('password');
-    const confirmPass = data.get('confirm-password');
-    // check that pw and confirm pw match
-    if (password !== confirmPass) {
-      console.log('passwords do not match');
-      return;
-    }
-    // check if username exists
-    // if all pass, save new user
-    const signUp = async () => {
-      const response = await axios.post(requestURI, {
-        username,
-        password,
-        email,
-      });
-      console.log(response);
-      setUsername(response.data);
-      setOpenSignUp(false);
-    };
-    signUp();
-    console.log('signedup');
-  };
+  // const handleSignUpSubmit = (e) => {
+  //   e.preventDefault();
+  //   const requestURI = `${process.env.BACKEND_USER_URI}/new`;
+  //   const data = new FormData(e.currentTarget);
+  //   const username = data.get('username');
+  //   const email = data.get('email');
+  //   const password = data.get('password');
+  //   const confirmPass = data.get('confirm-password');
+  //   // check that pw and confirm pw match
+  //   if (password !== confirmPass) {
+  //     console.log('passwords do not match');
+  //     return;
+  //   }
+  //   // check if username exists
+  //   // if all pass, save new user
+  //   const signUp = async () => {
+  //     const response = await axios.post(requestURI, {
+  //       username,
+  //       password,
+  //       email,
+  //     });
+  //     console.log(response);
+  //     setUsername(response.data);
+  //     setOpenSignUp(false);
+  //   };
+  //   signUp();
+  //   console.log('signedup');
+  // };
 
-  const handleLogout = (e) => {
-    e.preventDefault();
-    // change state of username to empty string
-    setUsername('');
-    // setLoginStatus(false);
-  };
+  // const handleLogout = (e) => {
+  //   e.preventDefault();
+  //   // change state of username to empty string
+  //   setUsername('');
+  //   // setLoginStatus(false);
+  // };
 
   if (stateUsername !== '') {
     return (
       <div id='SignInButtons'>
-
-        <Button id='logout' variant='contained' color='secondary' onClick={handleLogout}>
+        <Button
+          id='logout'
+          variant='contained'
+          color='secondary'
+          // onClick={handleLogout}
+        >
           Log Out
         </Button>
-
       </div>
     );
   }
   return (
     <div id='SignInButtons'>
-      <Button id='signin' variant='contained' color='secondary' onClick={handleClickLoginOpen}>
+      <Button
+        id='signin'
+        variant='contained'
+        color='secondary'
+        onClick={handleClickLoginOpen}
+      >
         Sign In
       </Button>
       <Dialog open={openLogin} onClose={handleLoginClose}>
         <DialogTitle>Login</DialogTitle>
         <DialogContent>
-          <Box component='form' onSubmit={handleLoginSubmit} noValidate sx={{ mt: 1 }}>
+          <Box
+            component='form'
+            // onSubmit={handleLoginSubmit}
+            noValidate
+            sx={{ mt: 1 }}
+          >
             <TextField
               margin='normal'
               required
@@ -138,7 +156,6 @@ function SignInButtons(props) {
               Sign In
             </Button>
           </Box>
-
         </DialogContent>
       </Dialog>
 
@@ -148,7 +165,12 @@ function SignInButtons(props) {
       <Dialog open={openSignUp} onClose={handleSignUpClose}>
         <DialogTitle>Sign Up</DialogTitle>
         <DialogContent>
-          <Box component='form' onSubmit={handleSignUpSubmit} noValidate sx={{ mt: 1 }}>
+          <Box
+            component='form'
+            // onSubmit={handleSignUpSubmit}
+            noValidate
+            sx={{ mt: 1 }}
+          >
             <TextField
               margin='normal'
               required
@@ -198,7 +220,6 @@ function SignInButtons(props) {
               Sign In
             </Button>
           </Box>
-
         </DialogContent>
       </Dialog>
     </div>

@@ -5,70 +5,71 @@ import OutputBox from './OutputBox';
 import SearchedResults from './SearchedResults';
 import Shark from './static/shark.png';
 import { Button } from '@mui/material';
+import SignInButtons from './SignInButtons';
 
 // mock data for searched:
 // to test first update username in the state to any mock string as well
-// const mockDataForSearch = [
-//   {
-//     code: `<!DOCTYPE html>
-//     <html>
-//     <head>
-//         <title>
-//             How to insert spaces/tabs in text using HTML/CSS?
-//         </title>
-//     </head>
-//     <body>
-//         <h1 style="color: green">GeeksforGeeks</h1>
-//         <b>How to insert spaces/tabs in text using HTML/CSS?</b>
+const mockDataForSearch = [
+  {
+    code: `<!DOCTYPE html>
+    <html>
+    <head>
+        <title>
+            How to insert spaces/tabs in text using HTML/CSS?
+        </title>
+    </head>
+    <body>
+        <h1 style="color: green">GeeksforGeeks</h1>
+        <b>How to insert spaces/tabs in text using HTML/CSS?</b>
 
-//         <p>This is a &nbsp; regular space.</p>
-//         <p>This is a &ensp; two spaces gap.</p>
-//         <p>This is a &emsp; four spaces gap.</p>
-//     </body>
-//     </html>`,
-//     translation: 'This is a function with console.log',
-//   },
-//   {
-//     code: 'useEffect(() => {setInputTextLength(inputText.toString().length)',
-//     translation: 'this is another function',
-//   },
-// ];
+        <p>This is a &nbsp; regular space.</p>
+        <p>This is a &ensp; two spaces gap.</p>
+        <p>This is a &emsp; four spaces gap.</p>
+    </body>
+    </html>`,
+    translation: 'This is a function with console.log',
+  },
+  {
+    code: 'useEffect(() => {setInputTextLength(inputText.toString().length)',
+    translation: 'this is another function',
+  },
+];
 
 function BoxContainer() {
   const [inputText, setInputText] = useState('');
   const [inputTextLength, setInputTextLength] = useState(0);
   const [inputLanguage, setInputLanguage] = useState('Javascript');
   const [outputText, setOutputText] = useState('');
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState('Robbie');
   const [open, setHistoryOpen] = useState(false);
   const [shrinkComponent, setShrinkComponent] = useState({});
-  const [searched, setSearched] = useState([]);
+  const [searched, setSearched] = useState(mockDataForSearch);
 
   useEffect(() => {
     setInputTextLength(inputText.toString().length);
   });
 
   // // functionality to get previously researched queries from the database
-  useEffect(() => {
-    if (username) {
-      const requestURI = process.env.BACKEND_API_URI + '/user/getRequests';
-      const getSearched = async () => {
-        const response = await fetch(requestURI, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*', // might not need this
-          },
-          body: JSON.stringify({
-            username: username,
-          }),
-        });
-        return response.data;
-      };
-      const data = getSearched();
-      setSearched(data);
-    }
-  }, [username]);
+  // useEffect(() => {
+  //   if (username) {
+  //     const requestURI = process.env.BACKEND_API_URI + '/user/getRequests';
+  //     const getSearched = async () => {
+  //       const response = await fetch(requestURI, {
+  //         method: 'GET',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //           'Access-Control-Allow-Origin': '*', // might not need this
+  //         },
+  //         body: JSON.stringify({
+  //           username: username,
+  //         }),
+  //       });
+  //       return response.data;
+  //     };
+  //     const data = getSearched();
+  //     setSearched(data);
+  //   }
+  // }, [username]);
 
   // function to invoke when user clicks one previously searched query
   // we expect to see full code and translation in the input / output boxes
@@ -122,7 +123,6 @@ function BoxContainer() {
   const handleSubmit = async (event) => {
     console.log(JSON.stringify(inputText));
     event.preventDefault();
-    console.log('making call to backend');
     const requestURI = process.env.BACKEND_API_URI;
 
     const json = {
@@ -142,17 +142,6 @@ function BoxContainer() {
       },
     });
     setOutputText(response.data);
-
-    retext()
-      .use(retextPos) // Make sure to use `retext-pos` before `retext-keywords`.
-      .use(retextKeywords)
-      .process(outputText)
-      .then((data) => {
-        console.log('Keywords:');
-        data.data.keywords.forEach((keyword) => {
-          console.log(toString(keyword.matches[0].node));
-        });
-      });
   };
 
   const handleHistoryOpen = () => {
@@ -161,17 +150,20 @@ function BoxContainer() {
 
   return (
     <>
-      {username && (
-        <div className='dropdown'>
-          <Button onClick={handleHistoryOpen}>Your History</Button>
-          {open ? (
-            <SearchedResults
-              handleElementClick={handleElementClick}
-              searched={searched}
-            />
-          ) : null}
-        </div>
-      )}
+      <div id='headerButtons'>
+        <SignInButtons setUsername={setUsername} stateUsername={username} />
+        {username && (
+          <div className='dropdown'>
+            <Button onClick={handleHistoryOpen}>Your History</Button>
+            {open ? (
+              <SearchedResults
+                handleElementClick={handleElementClick}
+                searched={searched}
+              />
+            ) : null}
+          </div>
+        )}
+      </div>
       <main id='BoxContainer' style={{ display: 'flex' }}>
         <UserInput
           shrinkComponent={shrinkComponent}
