@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-function SearchedResults({ searched, handleElementClick }) {
-  console.log(searched);
+const SearchedResults = (props) => {
+  const { searched, handleElementClick } = props;
+  console.log('line 5', searched);
   return (
     <div className='searchedContainer'>
       {searched.map((obj) => (
@@ -12,18 +13,16 @@ function SearchedResults({ searched, handleElementClick }) {
         >
           <p>
             <span>Code: </span>
-            {obj.code.slice(0, 20)}
-            ...
+            {obj.code.slice(0, 100)}...
           </p>
           <p>
             <span>Translation: </span>
-            {obj.translation.slice(0, 20)}
-            ...
+            {obj.code.slice(0, 100)}...
           </p>
         </div>
       ))}
     </div>
   );
-}
+};
 
 export default SearchedResults;
